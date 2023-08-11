@@ -16,11 +16,11 @@ class FrameCollection<FrameType> {
 
     /**
      * @description: 清空栈帧集合中的数据，用于手动清空堆栈。
-     * 
+     *
      * **注意！：**
-     * 
+     *
      * - 一般来说不需要手动清空。
-     * 
+     *
      */
     public clear(): void {
         this.frames.length = 0;
@@ -371,11 +371,11 @@ export function getCallerName(index: number = 0): string {
 /**
  * @description: 获取当前真实的调用堆栈。
  * @param {Function} [endFunction] 终止栈帧，会自动排除后续的无用栈帧。
- * 
+ *
  * **注意！：**
- * 
+ *
  * - 匿名函数和类中的方法等 `console.trace()` 方法不显示的函数不能当作终止栈帧。
- * 
+ *
  * @return {string} 调用堆栈的字符串。
  */
 export function getRawStackTrace(endFunction?: Function): string {
@@ -428,11 +428,11 @@ export class Record {
 
     /**
      * @description: 设置记录的日志级别，低于设置的级别的日志都不会记录。
-     * 
+     *
      * **注意！：**
-     * 
+     *
      * - 修改前的日志记录不会改变。
-     * 
+     *
      * @param {number} level 设置的等级。建议使用 `LogLevel` 枚举类型来获取等级。
      */
     public static setRecordLevel(level: number): void {
@@ -449,7 +449,7 @@ export class Record {
 
     /**
      * @description: 将信息打印到控制台，并带上换行符。 可以一次性传入多个参数，第一个参数作为主要信息，其他参数作为类似于 [printf(3)](https://man7.org/linux/man-pages/man3/printf.3.html) 中的代替值（参数都会传给 `util.format()` ）。
-     * 
+     *
      * 此函数与 `console.log` 方法的主要区别在于会自动存储每一次的日志，以供后面使用。
      * @param {string} [message] 主要信息。
      * @param {any[]} [args] 要填充的数据。
@@ -457,10 +457,10 @@ export class Record {
      * @example
      * ```typescript
      * const count: number = 5;
-     * 
+     *
      * // 打印 'count: 5' 到 stdout
      * Record.log('count: %d', count);
-     * 
+     *
      * // 打印 'count: 5' 到 stdout
      * Record.log('count:', count);
      * ```
@@ -491,11 +491,11 @@ export class Record {
 
     /**
      * @description: 与 `Record.log` 类似，但输出结果以灰色字体显示。输出优先级低于 `log` ，用于输出观察性质的信息。
-     * 
+     *
      * **注意！：**
-     * 
+     *
      * - 此函数是 `Record.verbose` 的别名。
-     * 
+     *
      * @param {string} [message] 主要信息。
      * @param {array} [args] 要填充的数据。
      * @return {string} 输出的日志信息。
@@ -549,13 +549,13 @@ export class Record {
 
     /**
      * @description: 与 `console.trace` 类似，同时会打印出调用这个函数所在的调用栈信息（即当前运行的文件、行数等信息）。
-     * 
+     *
      * 此函数与 `console.trace` 的主要区别在于会修正异常的行号，便于调试。同时会将调用堆栈信息存储在日志堆栈中。
-     * 
+     *
      * **注意！：**
-     * 
+     *
      * - 此函数显示的等级和 `Record.debug()` 相同。
-     * 
+     *
      * @param {string} [message] 主要信息。
      * @param {array} [args] 要填充的数据。
      * @return {string} 输出的日志信息。
@@ -583,13 +583,13 @@ export class Record {
 
     /**
      * @description: 与 `Record.trace` 类似，会打印出调用这个函数所在的调用栈信息（即当前运行的文件、行数等信息）。
-     * 
+     *
      * 此函数与 `Record.trace` 的主要区别在于可以手动指定调用栈的格式，可以更个性化的显示调用栈。
-     * 
+     *
      * **注意！：**
-     * 
+     *
      * - 此函数显示的等级和 `Record.debug()` 相同。
-     * 
+     *
      * @param {TraceFormatter} formatter 用于规定转换后的字符串格式的回调方法，默认转换格式的默认转换格式类似 Python 。
      * @param {string} [message] 主要信息。
      * @param {array} [args] 要填充的数据。
@@ -661,9 +661,9 @@ export class Record {
 
 /**
  * @description: 设置 pushplus 的令牌，必须为 32 位十六进制数的字符串。
- * 
+ *
  * 如果不是运行中获取的令牌，可以选择在脚本配置文件当中添加如下名为 `TOKEN` 的字段，在读取全局变量时会自动加载。
- * 
+ *
  * @param {string} token 用于调用 pushplus api 的令牌。
  * @return {boolean} 是否设置成功。
  */
@@ -679,7 +679,7 @@ export function setToken(token: string): boolean {
 
 /**
  * @description: 将信息发送到远程，并带上换行符，返回是否发送成功。
- * 
+ *
  * 可以一次性传入多个参数，第一个参数作为主要信息，其他参数作为类似于 [printf(3)](https://man7.org/linux/man-pages/man3/printf.3.html) 中的代替值（参数都会传给 `util.format()` ）。
  * @param {string} title 发送消息的标题。
  * @param {string} data 主要信息。
@@ -697,12 +697,12 @@ export function sendMessage(title: string, data: string, ...args: any[]): boolea
  * @param {LogCollection} [logs] 要发送的日志集合，默认发送完整的日志堆栈。可以通过过滤方法，选择性发送。
  * @param {string} [title] 发送消息的标题（默认为 `logger` ）。
  * @param {boolean} [clear] 发送后是否清空日志堆栈（默认为 `true` ）。
- * 
+ *
  * **注意！：**
- * 
+ *
  * - 发送失败时并不会清空日志堆栈，不管 `clear` 参数为何值。
  * - 在选择的日志集合不为默认时需要手动清除全部日志。
- * 
+ *
  * @return {boolean} 是否发送成功。
  * @example
  * ```typescript

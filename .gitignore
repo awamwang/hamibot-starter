@@ -5,3 +5,6 @@ regex.md
 index.dts
 *.code-workspace
 
+/dist
+/src/test
+/hamibot.config.json
