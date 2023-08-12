@@ -5,7 +5,7 @@
  * @LastTime: 2022-09-06 14:30:21
  * @FilePath: \\buildConfig\\webpack.config.js
  * @Description: 默认设置
- * 
+ *
  * https://blog.csdn.net/Zong_0915/article/details/115831373
  */
 const path = require('path')
@@ -38,7 +38,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin()
+        // new CleanWebpackPlugin()
     ],
     resolve: {
         extensions: ['.ts', '.js']
