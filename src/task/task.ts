@@ -5,7 +5,7 @@ import { BaseException } from '../lib/exception'
 
 export interface AwamTaskConfig {
   name?: string
-  autoRun?: boolean // new AwamTask时直接运行task
+  // autoRun?: boolean // new AwamTask时直接运行task
   pureTask?: boolean // 是否只执行task的核心部分（基于效率考虑，如果app不切换，则不需要启动等操作）
 }
 
@@ -18,7 +18,7 @@ export class AwamTask {
       this._app = new AwamApp(_config.name)
     }
 
-    if (_config.autoRun) this.run()
+    // if (_config.autoRun) this.run()
   }
 
   async before() {
@@ -42,5 +42,7 @@ export class AwamTask {
     await this.handler()
 
     if (!this._config.pureTask) await this.after()
+
+    return this
   }
 }

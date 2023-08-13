@@ -1,4 +1,5 @@
 // import { ApplicationInfo, PackageInfo } from 'app'
+import { Record } from './logger'
 import { BaseException } from './exception'
 
 const PackageNameReg = /^com\.(\S+)\.(\S+)/
@@ -18,7 +19,7 @@ export class AwamApp {
     }
 
     if (!name) {
-      throw new BaseException('无效的包名或APP名')
+      throw new BaseException('无效的包名或APP名，可能APP未安装')
     }
 
     this.packageName = name
@@ -38,7 +39,7 @@ export class AwamApp {
       }
     })
 
-    console.log(`启动APP: ${this.appName}`)
+    Record.log(`启动APP: ${this.appName}`)
   }
 
   stop() {
@@ -57,7 +58,7 @@ export class AwamApp {
       sleep(100)
     }
 
-    console.log(`关闭APP: ${this.appName}`)
+    Record.log(`关闭APP: ${this.appName}`)
   }
 
   restart() {
