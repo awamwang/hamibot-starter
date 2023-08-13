@@ -1,5 +1,7 @@
 {
   "conventionalCommits.scopes": [
-    "task"
+    "task",
+    "task",
+    "common"
   ]
 }
