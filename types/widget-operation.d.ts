@@ -10,16 +10,16 @@ declare module 'widget-operation' {
     global {
         /**
          * @description: 检查无障碍服务是否已经启用，如果没有启用则抛出异常并跳转到无障碍服务启用界面，同时设置无障碍模式为 mode。
-         * 
+         *
          * *建议（：*
-         * 
+         *
          * - 使用 `auto.waitFor()` 和 `auto.setMode()` 代替该函数，因为 `auto()` 函数如果无障碍服务未启动会停止脚本；而 `auto.waitFor()` 则会在在无障碍服务启动后继续运行。
-         * 
+         *
          * @param {string} [mode] 无障碍模式（默认为 `normal` ），可选的值为:
-         * 
+         *
          * - `fast` - 快速模式。该模式下会启用控件缓存，从而选择器获取屏幕控件更快。对于需要快速的控件操作的脚本可以使用该模式，一般脚本则没有必要使用该函数。
          * - `normal` - 正常模式。
-         * 
+         *
          * @example
          * ```typescript
          * auto('fast');
@@ -30,32 +30,32 @@ declare module 'widget-operation' {
         namespace auto {
             /**
              * @description: 检查无障碍服务是否已经启用，如果没有启用则跳转到无障碍服务启用界面，并等待无障碍服务启动；当无障碍服务启动后脚本会继续运行。因为该函数是阻塞的，因此除非是有协程特性，否则不能在 ui 模式下运行该函数。
-             * 
+             *
              * *建议（：*
-             * 
+             *
              * - 在 ui 模式下使用 `auto()` 函数。
-             * 
+             *
              */
             function waitFor(): void;
 
             /**
              * @description: 设置无障碍模式为 mode。
              * @param {string} mode 无障碍模式（默认为 `normal` ），可选的值为:
-             * 
+             *
              * - `fast` - 快速模式。该模式下会启用控件缓存，从而选择器获取屏幕控件更快。对于需要快速的控件操作的脚本可以使用该模式，一般脚本则没有必要使用该函数。
              * - `normal` - 正常模式。
-             * 
+             *
              */
             function setMode(mode: 'fast' | 'normal'): void;
 
             /**
              * @description: 启用有关 automator 的一些特性。
              * @param {string | string[]} flags 标志，来启用和禁用某些特性，可选的值为:
-             * 
+             *
              * - `findOnUiThread` - 使用该特性后，选择器搜索时会在主进程进行。该特性用于解决线程安全问题导致的次生问题，不过目前貌似已知问题并不是线程安全问题。
              * - `useUsageStats` - 使用该特性后，将会以'使用情况统计'服务的结果来检测当前正在运行的应用包名（需要授予'查看使用情况统计'权限）。如果觉得 `currentPackage()` 返回的结果不太准确，可以尝试该特性。
              * - `useShell` - 使用该特性后，将使用 shell 命令获取当前正在运行的应用的包名、活动名称，但是需要 root 权限。
-             * 
+             *
              * @example
              * ```typescript
              * auto.setFlags(['findOnUiThread', 'useShell']);
@@ -66,11 +66,11 @@ declare module 'widget-operation' {
             /**
              * @description: 启用有关 automator 的一些特性。
              * @param {string | string[]} flags 标志，来启用和禁用某些特性，可选的值为:
-             * 
+             *
              * - `findOnUiThread` - 使用该特性后，选择器搜索时会在主进程进行。该特性用于解决线程安全问题导致的次生问题，不过目前貌似已知问题并不是线程安全问题。
              * - `useUsageStats` - 使用该特性后，将会以'使用情况统计'服务的结果来检测当前正在运行的应用包名（需要授予'查看使用情况统计'权限）。如果觉得 `currentPackage()` 返回的结果不太准确，可以尝试该特性。
              * - `useShell` - 使用该特性后，将使用 shell 命令获取当前正在运行的应用的包名、活动名称，但是需要 root 权限。
-             * 
+             *
              * @example
              * ```typescript
              * auto.setFlags(['findOnUiThread', 'useShell']);
@@ -85,58 +85,58 @@ declare module 'widget-operation' {
 
             /**
              * @description: 当前所有窗口（ `AccessibilityWindowInfo` ）的数组，可能包括状态栏、输入法、当前应用窗口，弹出窗口、悬浮窗、分屏应用窗口等。可以分别获取每个窗口的布局信息。
-             * 
+             *
              * 更多信息参见 [AccessibilityWindowInfo] ，返回值为 Boolean （是否符合过滤条件）。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * - 该函数需要 Android 5.0 以上才能运行
-             * 
+             *
              * [AccessibilityWindowInfo]: https://developer.android.com/reference/android/view/accessibility/AccessibilityWindowInfo
              */
             const windows: object[];
 
             /**
              * @description: 当前窗口的布局根元素。如果无障碍服务未启动或者 `WindowFilter` 均返回  `false` ，则会返回 `null` 。如果不设置 `windowFilter` ，则当前窗口即为活跃的窗口（获取到焦点、正在触摸的窗口）；如果设置了 `windowFilter` ，则获取的是过滤的窗口中的第一个窗口。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * - 如果系统是 Android5.0 以下，则始终返回当前活跃的窗口的布局根元素
-             * 
+             *
              */
             const root: UiObject | null;
 
             /**
              * @description: 当前活跃的窗口（获取到焦点、正在触摸的窗口）的布局根元素。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * - 无障碍服务未启动则为 `null`
-             * 
+             *
              */
             const rootInActiveWindow: UiObject | null;
 
             /**
              * @description: 返回当前被 `WindowFilter` 过滤的窗口的布局根元素组成的数组。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * - 如果系统是 Android5.0 以下，则始终返回当前活跃的窗口的布局根元素的数组
-             * 
+             *
              */
             const windowRoots: UiObject | null;
 
             /**
              * @description: 设置窗口过滤器。这个过滤器可以决定哪些窗口是目标窗口，并影响选择器的搜索。选择器默认是在当前活跃的窗口中搜索，不会搜索诸如悬浮窗、状态栏之类的，使用 `WindowFilter` 则可以控制搜索的窗口。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * -  如果 `WindowFilter` 返回的结果均为 `false` ，则选择器的搜索结果将为空。
              * -  setWindowFilter 函数会影响 `auto.windowRoots` 的结果。
              * -  该函数需要 Android 5.0 以上才有效。
-             * 
+             *
              * @param {function} filter 用于过滤的回调函数。参数为窗口，更多信息参见 [AccessibilityWindowInfo] ，返回值为 Boolean （是否符合过滤条件）。
-             * 
+             *
              * [AccessibilityWindowInfo]: https://developer.android.com/reference/android/view/accessibility/AccessibilityWindowInfo
              */
             function setWindowFilter(filter: (window: AccessibilityWindowInfo) => boolean): void;
@@ -159,11 +159,11 @@ declare module 'widget-operation' {
 
             /**
              * @description: 点击在指定区域的控件。有些按钮或者部件是图标而不是文字（例如发送朋友圈的照相机图标以及 QQ 下方的消息、联系人、动态图标），这时不能通过 `click(text, i)` 来点击，可以通过描述图标所在的区域来点击。`left` , `bottom` , `top` , `right` 描述的就是点击的区域。至于要定位点击的区域，可以在悬浮窗使用布局分析工具查看控件的 `bounds` 属性。通过无障碍服务录制脚本会生成该语句。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * - 该函数一般只用于录制的脚本中使用，在自己写的代码中使用该函数一般不要使用该函数。
-             * 
+             *
              * @param {number} left 要点击的长方形区域左边与屏幕左边的像素距离。
              * @param {number} top 要点击的长方形区域上边与屏幕上边的像素距离。
              * @param {number} bottom 要点击的长方形区域下边与屏幕下边的像素距离。
@@ -196,11 +196,11 @@ declare module 'widget-operation' {
 
             /**
              * @description: 把所有输入框的文本都设置为 `text` 。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * -  这里的输入文本的意思是，把输入框的文本置为 `text` ，而不是在原来的文本上追加。
-             * 
+             *
              * @param {string} text 要输入的文本。
              * @return {boolean} 是否输入成功。当找不到对应的文本框时返回 `false` ，否则返回 `true` 。
              */
@@ -208,11 +208,11 @@ declare module 'widget-operation' {
 
             /**
              * @description: 将第 `i + 1` 个输入框的文本设置为 `text`。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * -  这里的输入文本的意思是，把输入框的文本置为 `text` ，而不是在原来的文本上追加。
-             * 
+             *
              * @param {number} i 表示要输入的为第 `i + 1` 个输入框。
              * @param {string} text 要输入的文本。
              * @return {boolean} 是否输入成功。当找不到对应的文本框时返回 `false` ，否则返回 `true` 。
@@ -242,10 +242,10 @@ declare module 'widget-operation' {
             /**
              * @description: 指定选择器的搜索算法。广度优先在控件所在层次较低时，或者布局的层次不多时，通常能更快找到控件。
              * @param {string} algorithm 搜索算法（默认为 `DFS` ），可选的值为:
-             * 
+             *
              * - `DFS` - 深度优先算法
              * - `BFS` - 广度优先算法
-             * 
+             *
              * @return {this} 返回选择器自身以便链式调用。
              * @example
              * ```typescript
@@ -289,11 +289,11 @@ declare module 'widget-operation' {
 
             /**
              * @description: 为当前选择器附加控件 `text` 需要满足正则表达式 `reg` 的条件。有关正则表达式，可以查看 [正则表达式] 。需要注意的是，如果正则表达式是字符串，则需要使用 `\\` 来表达 `\` （也即 Java 正则表达式的形式），例如 `textMatches('\\d+')` 匹配多位数字；但如果使用 JavaScript 语法的正则表达式则不需要，例如 `textMatches(/\d+/)` 。但如果使用字符串的正则表达式则该字符串不能同时以'/'开头和结束，也即不能写诸如 `textMatches('/\\d+/')` 的表达式，否则会被开头的'/'和结尾的'/'会被忽略。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * - 有些情况会出现匹配不到的问题。请尽量减少使用。
-             * 
+             *
              * [正则表达式]: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions
              * @param {RegExp | string} reg 要满足的正则表达式。
              * @return {this} 返回选择器自身以便链式调用。
@@ -330,11 +330,11 @@ declare module 'widget-operation' {
 
             /**
              * @description: 为当前选择器附加控件 `desc` 需要满足正则表达式 `reg` 的条件。有关正则表达式，可以查看 [正则表达式] 。需要注意的是，如果正则表达式是字符串，则需要使用 `\\` 来表达 `\` （也即 Java 正则表达式的形式），例如 `textMatches('\\d+')` 匹配多位数字；但如果使用 JavaScript 语法的正则表达式则不需要，例如 `textMatches(/\d+/)` 。但如果使用字符串的正则表达式则该字符串不能同时以'/'开头和结束，也即不能写诸如 `textMatches('/\\d+/')` 的表达式，否则会被开头的'/'和结尾的'/'会被忽略。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * - 有些情况会出现匹配不到的问题。请尽量减少使用。
-             * 
+             *
              * [正则表达式]: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions
              * @param {RegExp | string} regex 要满足的正则表达式。
              * @return {this} 返回选择器自身以便链式调用。
@@ -349,11 +349,11 @@ declare module 'widget-operation' {
 
             /**
              * @description: 为当前选择器附加 `id` 等于 `resId` 的筛选条件。控件的 `id` 属性 **通常** 是可以用来确定控件的唯一标识，如果一个控件有 `id` ，那么使用 `id` 来找到他是最好的方法。不过，在列表中会出现多个控件的 `id` 相同的情况。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * - 在 QQ 界面经常会出现多个 `id` 为 `name` 的控件，在微信上则每个版本的 `id` 都会变化。对于这些软件而言比较难用 `id` 定位控件。
-             * 
+             *
              * @param {string} resId 控件的 `id` ，以'包名:id/'开头，例如 `com.tencent.mm:id/send_btn` 。也可以不指定包名，这时会以当前正在运行的应用的包名来补全 `id` 。例如 `id('send_btn')` ,在 QQ 界面相当于 `id('com.tencent.mobileqq:id/send_btn')` 。
              * @return {this} 返回选择器自身以便链式调用。
              */
@@ -382,11 +382,11 @@ declare module 'widget-operation' {
 
             /**
              * @description: 附加 `id` 需要满足正则表达式。有关正则表达式，可以查看 [正则表达式] 。需要注意的是，如果正则表达式是字符串，则需要使用 `\\` 来表达 `\` （也即 Java 正则表达式的形式），例如 `textMatches('\\d+')` 匹配多位数字；但如果使用 JavaScript 语法的正则表达式则不需要，例如 `textMatches(/\d+/)` 。但如果使用字符串的正则表达式则该字符串不能同时以'/'开头和结束，也即不能写诸如 `textMatches('/\\d+/')` 的表达式，否则会被开头的'/'和结尾的'/'会被忽略。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * - 有些情况会出现匹配不到的问题。请尽量减少使用。
-             * 
+             *
              * [正则表达式]: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions
              * @param {RegExp} reg `id` 要满足的正则表达式。
              * @return {this} 返回选择器自身以便链式调用。
@@ -434,11 +434,11 @@ declare module 'widget-operation' {
 
             /**
              * @description: 为当前选择器附加控件 `className` 需要满足正则表达式 `reg` 的条件。有关正则表达式，可以查看 [正则表达式] 。需要注意的是，如果正则表达式是字符串，则需要使用 `\\` 来表达 `\` （也即 Java 正则表达式的形式），例如 `textMatches('\\d+')` 匹配多位数字；但如果使用 JavaScript 语法的正则表达式则不需要，例如 `textMatches(/\d+/)` 。但如果使用字符串的正则表达式则该字符串不能同时以'/'开头和结束，也即不能写诸如 `textMatches('/\\d+/')` 的表达式，否则会被开头的'/'和结尾的'/'会被忽略。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * - 有些情况会出现匹配不到的问题。请尽量减少使用。
-             * 
+             *
              * [正则表达式]: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions
              * @param {RegExp} reg 要满足的正则表达式。
              * @return {this} 返回选择器自身以便链式调用。
@@ -475,11 +475,11 @@ declare module 'widget-operation' {
 
             /**
              * @description: 为当前选择器附加控件 `packageName` 需要满足正则表达式 `reg` 的条件。有关正则表达式，可以查看 [正则表达式] 。需要注意的是，如果正则表达式是字符串，则需要使用 `\\` 来表达 `\` （也即 Java 正则表达式的形式），例如 `textMatches('\\d+')` 匹配多位数字；但如果使用 JavaScript 语法的正则表达式则不需要，例如 `textMatches(/\d+/)` 。但如果使用字符串的正则表达式则该字符串不能同时以'/'开头和结束，也即不能写诸如 `textMatches('/\\d+/')` 的表达式，否则会被开头的'/'和结尾的'/'会被忽略。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * - 有些情况会出现匹配不到的问题。请尽量减少使用。
-             * 
+             *
              * [正则表达式]: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions
              * @param {RegExp | string} reg 要满足的正则表达式。
              * @return {this} 返回选择器自身以便链式调用。
@@ -488,11 +488,11 @@ declare module 'widget-operation' {
 
             /**
              * @description: 通过控件的 `bounds` 属性查找控件。一个控件的 bounds 属性为这个控件在屏幕上显示的范围。尽管用这个方法定位控件对于静态页面十分准确，却无法兼容不同分辨率的设备；同时对于列表页面等动态页面无法达到效果，因此使用不推荐该选择器。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * - 参数的这四个数字不能随意填写，必须精确的填写控件的四个边界才能找到该控件。
-             * 
+             *
              * @param {number} left 控件左边缘与屏幕左边的距离。
              * @param {number} top 控件上边缘与屏幕上边的距离。
              * @param {number} right 控件右边缘与屏幕左边的距离。
@@ -539,11 +539,11 @@ declare module 'widget-operation' {
 
             /**
              * @description: 为当前选择器附加控件 `drawingOrder` 等于 `order` 的条件。 `drawingOrder` 为一个控件在父控件中的绘制顺序，通常可以用于区分同一层次的控件。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * - 此方法在 Android 7.0 以上才能使用。
-             * 
+             *
              * @param {number} order 控件在父视图中的绘制顺序。
              * @return {this} 返回选择器自身以便链式调用。
              */
@@ -620,12 +620,12 @@ declare module 'widget-operation' {
 
             /**
              * @description: 根据当前的选择器所确定的筛选条件，对屏幕上的控件进行搜索，直到屏幕上出现满足条件的一个控件为止，并返回该控件。如果找不到控件，当屏幕内容发生变化时会重新寻找，直至找到。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * - 如果屏幕上一直没有出现所描述的控件，则该函数会阻塞，直至所描述的控件出现为止。因此此函数不会返回 `null` 。如果想要只在屏幕上搜索一次而不是一直搜索，请使用 `findOnce()` 。
              * - 如果屏幕上有多个满足条件的控件，`findOne()` 会返回根据指定的搜索算法（默认为 `DFS` ）找到的第一个控件。
-             * 
+             *
              * @return {UiObject} 根据选择器查找到的控件。
              */
             findOne(): UiObject;
@@ -675,11 +675,11 @@ declare module 'widget-operation' {
 
             /**
              * @description: 根据当前的选择器所确定的筛选条件，对屏幕上的控件进行搜索，直到找到至少一个满足条件的控件为止，并返回所有满足条件的控件集合。该函数与 `find()` 函数的区别在于，该函数永远不会返回空集合；。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * - 如果屏幕上一直没有出现满足条件的控件，该函数会保持阻塞。
-             * 
+             *
              * @return {UiCollection} 根据选择器查找到的控件集合。
              */
             untilFind(): UiCollection;
@@ -737,11 +737,11 @@ declare module 'widget-operation' {
 
             /**
              * @description: 设置输入框控件的文本内容，并返回是否设置成功。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * - 该函数只对可编辑的输入框（ `editable` 为 `true` ）有效。
-             * 
+             *
              * @param {string} text 要设置的文本。
              * @return {boolean} 操作是否成功。
              */
@@ -749,11 +749,11 @@ declare module 'widget-operation' {
 
             /**
              * @description: 对输入框文本的选中内容进行复制。可以通过 `setSelection()` 函数来设置输入框选中的内容。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * - 该函数只能用于输入框控件，并且该控件有选中的文本。
-             * 
+             *
              * @return {boolean} 操作是否成功。
              * @example
              * ```typescript
@@ -769,22 +769,22 @@ declare module 'widget-operation' {
 
             /**
              * @description: 对输入框文本的选中内容进行剪切。可以通过 `setSelection()` 函数来设置输入框选中的内容。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * - 该函数只能用于输入框控件，并且该控件有选中的文本。
-             * 
+             *
              * @return {boolean} 操作是否成功。
              */
             cut(): boolean;
 
             /**
              * @description: 对输入框控件进行粘贴操作，把剪贴板内容粘贴到输入框中。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * - 该函数只能用于输入框控件，并且该控件有选中的文本。
-             * 
+             *
              * @return {boolean} 操作是否成功。
              * @example
              * ```typescript
@@ -805,10 +805,10 @@ declare module 'widget-operation' {
              * ```typescript
              * // 文本框中的内容为 '123456789'
              * let et = className('EditText').findOne();
-             * 
+             *
              * // 选中 '4567' 的文字
              * et.setSelection(3, 7)
-             * 
+             *
              * // 把光标设置在第一个字符的后面
              * et.setSelection(1, 1)
              * ```
@@ -817,22 +817,22 @@ declare module 'widget-operation' {
 
             /**
              * @description: 对控件执行向前滑动的操作。向前滑动包括了向右和向下滑动。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * - 如果一个控件既可以向右滑动和向下滑动，那么执行 `scrollForward()` 的行为是未知的。因为 Android 文档没有指出这一点，同时也没有充分的测试可供参考。
-             * 
+             *
              * @return {boolean} 操作是否成功。
              */
             scrollForward(): boolean;
 
             /**
              * @description: 对控件执行向后滑动的操作。向后滑动包括了向右和向下滑动。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * - 如果一个控件既可以向右滑动和向下滑动，那么执行 `scrollForward()` 的行为是未知的。因为 Android 文档没有指出这一点，同时也没有充分的测试可供参考。
-             * 
+             *
              * @return {boolean} 操作是否成功。
              */
             scrollBackward(): boolean;
@@ -878,11 +878,11 @@ declare module 'widget-operation' {
 
             /**
              * @description: 返回第 `i + 1` 个子控件。如果 `i` 大于控件数目或者小于 0 ，则抛出异常。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * - 由于布局捕捉的问题，该函数可能返回 `null` ，也就是可能获取不到某个子控件。
-             * 
+             *
              * @param {number} i 子控件索引。
              * @return {UiObject | null} 指定的子控件。
              * @example
@@ -923,11 +923,11 @@ declare module 'widget-operation' {
 
             /**
              * @description: 获取控件在父控件中的绘制次序。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * - 该函数在安卓 7.0 及以上才有效，7.0 以下版本调用会返回 0。
-             * 
+             *
              * @return {number} 控件在父控件中的绘制次序。
              */
             drawingOrder(): number;
@@ -949,6 +949,7 @@ declare module 'widget-operation' {
              * @return {UiCollection} 子控件中匹配的控件集合。
              */
             findByText(str: string): UiCollection;
+            findAncestorByText(str: string): UiCollection;
 
             /**
              * @description: 根据选择器 `selector` 在该控件的子控件、孙控件...中搜索符合该选择器条件的控件，并返回找到的第一个控件；如果没有找到符合条件的控件则返回 `null` 。
@@ -973,12 +974,14 @@ declare module 'widget-operation' {
              * ```
              */
             findOne(selector: UiSelector): UiObject | null;
+            findOneAncestor(selector: UiSelector): UiObject | null;
 
             /**
              * @description: 根据选择器 `selector` 在该控件的子控件、孙控件...中搜索符合该选择器条件的控件，并返回它们组合的集合。
              * @return {UiCollection} 根据选择器查找到的控件集合。
              */
             find(selector: UiSelector): UiCollection;
+            findAncestor(selector: UiSelector): UiCollection;
 
             /**
              * @description: 获取控件的深度。
@@ -999,7 +1002,8 @@ declare module 'widget-operation' {
             /**
              * @description: 控件的 `className` 属性。
              */
-            readonly className: string;
+            // readonly className: string;
+            className(): string;
 
             /**
              * @description: 控件的 `desc` 属性。
@@ -1034,7 +1038,8 @@ declare module 'widget-operation' {
             /**
              * @description: 控件是否可点击。
              */
-            readonly clickable: boolean;
+            // readonly clickable: boolean;
+            clickable(): boolean;
 
             /**
              * @description: 控件是否可长按。
@@ -1085,11 +1090,11 @@ declare module 'widget-operation' {
 
             /**
              * @description: 获取集合中的控件（ `UiObject` ）。历史遗留函数。
-             * 
+             *
              * *建议（：*
-             * 
+             *
              * - 直接使用数组下标的方式访问元素。
-             * 
+             *
              * @return {UiObject} 集合中第 `i + 1` 个控件。
              */
             get(i: number): UiObject;
@@ -1115,11 +1120,11 @@ declare module 'widget-operation' {
 
             /**
              * @description: 根据 `selector` 所确定的条件在该控件集合的控件、子控件、孙控件...中找到所有符合条件的控件并返回找到的控件集合。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * - 此方法递归地遍历控件集合里所有的控件以及他们的子控件。和数组的filter函数不同。
-             * 
+             *
              * @param {UiSelector} selector 规定筛选条件的选择器。
              * @return {UiCollection} 根据选择器查找到的控件集合。
              * @example
@@ -1154,11 +1159,11 @@ declare module 'widget-operation' {
 
             /**
              * @description: 设置集合内的所有输入框控件的文本内容，并返回是否设置成功。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * - 该函数只对可编辑的输入框（ `editable` 属性为 `true` ）有效。
-             * 
+             *
              * @param {string} text 要设置的文本。
              * @return {boolean} 操作是否成功。
              */
@@ -1166,11 +1171,11 @@ declare module 'widget-operation' {
 
             /**
              * @description: 对集合内的所有输入框文本的选中内容进行复制。可以通过 `setSelection()` 函数来设置输入框选中的内容。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * - 该函数只能用于输入框控件，并且该控件有选中的文本。
-             * 
+             *
              * @return {boolean} 操作是否成功。
              * @example
              * ```typescript
@@ -1186,22 +1191,22 @@ declare module 'widget-operation' {
 
             /**
              * @description: 对集合内的所有输入框文本的选中内容进行剪切。可以通过 `setSelection()` 函数来设置输入框选中的内容。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * - 该函数只能用于输入框控件，并且该控件有选中的文本。
-             * 
+             *
              * @return {boolean} 操作是否成功。
              */
             cut(): boolean;
 
             /**
              * @description: 对集合内的所有输入框控件进行粘贴操作，把剪贴板内容粘贴到输入框中。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * - 该函数只能用于输入框控件，并且该控件有选中的文本。
-             * 
+             *
              * @return {boolean} 操作是否成功。
              * @example
              * ```typescript
@@ -1222,10 +1227,10 @@ declare module 'widget-operation' {
              * ```typescript
              * // 文本框中的内容为 '123456789'
              * let et = className('EditText').findOne();
-             * 
+             *
              * // 选中 '4567' 的文字
              * et.setSelection(3, 7)
-             * 
+             *
              * // 把光标设置在第一个字符的后面
              * et.setSelection(1, 1)
              * ```
@@ -1234,22 +1239,22 @@ declare module 'widget-operation' {
 
             /**
              * @description: 对集合内的所有控件执行向前滑动的操作。向前滑动包括了向右和向下滑动。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * - 如果一个控件既可以向右滑动和向下滑动，那么执行 `scrollForward()` 的行为是未知的。因为 Android 文档没有指出这一点，同时也没有充分的测试可供参考。
-             * 
+             *
              * @return {boolean} 操作是否成功。
              */
             scrollForward(): boolean;
 
             /**
              * @description: 对集合内的所有控件执行向后滑动的操作。向后滑动包括了向右和向下滑动。
-             * 
+             *
              * **注意！：**
-             * 
+             *
              * - 如果一个控件既可以向右滑动和向下滑动，那么执行 `scrollForward()` 的行为是未知的。因为 Android 文档没有指出这一点，同时也没有充分的测试可供参考。
-             * 
+             *
              * @return {boolean} 操作是否成功。
              */
             scrollBackward(): boolean;
@@ -1378,11 +1383,11 @@ declare module 'widget-operation' {
 
         /**
          * @description: 点击在指定区域的控件。有些按钮或者部件是图标而不是文字（例如发送朋友圈的照相机图标以及 QQ 下方的消息、联系人、动态图标），这时不能通过 `click(text, i)` 来点击，可以通过描述图标所在的区域来点击。`left` , `bottom` , `top` , `right` 描述的就是点击的区域。至于要定位点击的区域，可以在悬浮窗使用布局分析工具查看控件的 `bounds` 属性。通过无障碍服务录制脚本会生成该语句。
-         * 
+         *
          * **注意！：**
-         * 
+         *
          * - 该函数一般只用于录制的脚本中使用，在自己写的代码中使用该函数一般不要使用该函数。
-         * 
+         *
          * @param {number} left 要点击的长方形区域左边与屏幕左边的像素距离。
          * @param {number} top 要点击的长方形区域上边与屏幕上边的像素距离。
          * @param {number} bottom 要点击的长方形区域下边与屏幕下边的像素距离。
@@ -1415,11 +1420,11 @@ declare module 'widget-operation' {
 
         /**
          * @description: 把所有输入框的文本都设置为 `text` 。
-         * 
+         *
          * **注意！：**
-         * 
+         *
          * -  这里的输入文本的意思是，把输入框的文本置为 `text` ，而不是在原来的文本上追加。
-         * 
+         *
          * @param {string} text 要输入的文本。
          * @return {boolean} 是否输入成功。当找不到对应的文本框时返回 `false` ，否则返回 `true` 。
          */
@@ -1427,11 +1432,11 @@ declare module 'widget-operation' {
 
         /**
          * @description: 将第 `i + 1` 个输入框的文本设置为 `text`。
-         * 
+         *
          * **注意！：**
-         * 
+         *
          * -  这里的输入文本的意思是，把输入框的文本置为 `text` ，而不是在原来的文本上追加。
-         * 
+         *
          * @param {number} i 表示要输入的为第 `i + 1` 个输入框。
          * @param {string} text 要输入的文本。
          * @return {boolean} 是否输入成功。当找不到对应的文本框时返回 `false` ，否则返回 `true` 。
@@ -1456,10 +1461,10 @@ declare module 'widget-operation' {
         /**
          * @description: 指定选择器的搜索算法。广度优先在控件所在层次较低时，或者布局的层次不多时，通常能更快找到控件。
          * @param {string} algorithm 搜索算法（默认为 `DFS` ），可选的值为:
-         * 
+         *
          * - `DFS` - 深度优先算法
          * - `BFS` - 广度优先算法
-         * 
+         *
          * @return {UiSelector} 返回选择器自身以便链式调用。
          * @example
          * ```typescript
@@ -1503,11 +1508,11 @@ declare module 'widget-operation' {
 
         /**
          * @description: 为当前选择器附加控件 `text` 需要满足正则表达式 `reg` 的条件。有关正则表达式，可以查看 [正则表达式] 。需要注意的是，如果正则表达式是字符串，则需要使用 `\\` 来表达 `\` （也即 Java 正则表达式的形式），例如 `textMatches('\\d+')` 匹配多位数字；但如果使用 JavaScript 语法的正则表达式则不需要，例如 `textMatches(/\d+/)` 。但如果使用字符串的正则表达式则该字符串不能同时以'/'开头和结束，也即不能写诸如 `textMatches('/\\d+/')` 的表达式，否则会被开头的'/'和结尾的'/'会被忽略。
-         * 
+         *
          * **注意！：**
-         * 
+         *
          * - 有些情况会出现匹配不到的问题。请尽量减少使用。
-         * 
+         *
          * [正则表达式]: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions
          * @param {RegExp | string} reg 要满足的正则表达式。
          * @return {UiSelector} 返回选择器自身以便链式调用。
@@ -1544,11 +1549,11 @@ declare module 'widget-operation' {
 
         /**
          * @description: 为当前选择器附加控件 `desc` 需要满足正则表达式 `reg` 的条件。有关正则表达式，可以查看 [正则表达式] 。需要注意的是，如果正则表达式是字符串，则需要使用 `\\` 来表达 `\` （也即 Java 正则表达式的形式），例如 `textMatches('\\d+')` 匹配多位数字；但如果使用 JavaScript 语法的正则表达式则不需要，例如 `textMatches(/\d+/)` 。但如果使用字符串的正则表达式则该字符串不能同时以'/'开头和结束，也即不能写诸如 `textMatches('/\\d+/')` 的表达式，否则会被开头的'/'和结尾的'/'会被忽略。
-         * 
+         *
          * **注意！：**
-         * 
+         *
          * - 有些情况会出现匹配不到的问题。请尽量减少使用。
-         * 
+         *
          * [正则表达式]: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions
          * @param {RegExp | string} regex 要满足的正则表达式。
          * @return {UiSelector} 返回选择器自身以便链式调用。
@@ -1563,11 +1568,11 @@ declare module 'widget-operation' {
 
         /**
          * @description: 为当前选择器附加 `id` 等于 `resId` 的筛选条件。控件的 `id` 属性 **通常** 是可以用来确定控件的唯一标识，如果一个控件有 `id` ，那么使用 `id` 来找到他是最好的方法。不过，在列表中会出现多个控件的 `id` 相同的情况。
-         * 
+         *
          * **注意！：**
-         * 
+         *
          * - 在 QQ 界面经常会出现多个 `id` 为 `name` 的控件，在微信上则每个版本的 `id` 都会变化。对于这些软件而言比较难用 `id` 定位控件。
-         * 
+         *
          * @param {string} resId 控件的 `id` ，以'包名:id/'开头，例如 `com.tencent.mm:id/send_btn` 。也可以不指定包名，这时会以当前正在运行的应用的包名来补全 `id` 。例如 `id('send_btn')` ,在 QQ 界面相当于 `id('com.tencent.mobileqq:id/send_btn')` 。
          * @return {UiSelector} 返回选择器自身以便链式调用。
          */
@@ -1596,11 +1601,11 @@ declare module 'widget-operation' {
 
         /**
          * @description: 附加 `id` 需要满足正则表达式。有关正则表达式，可以查看 [正则表达式] 。需要注意的是，如果正则表达式是字符串，则需要使用 `\\` 来表达 `\` （也即 Java 正则表达式的形式），例如 `textMatches('\\d+')` 匹配多位数字；但如果使用 JavaScript 语法的正则表达式则不需要，例如 `textMatches(/\d+/)` 。但如果使用字符串的正则表达式则该字符串不能同时以'/'开头和结束，也即不能写诸如 `textMatches('/\\d+/')` 的表达式，否则会被开头的'/'和结尾的'/'会被忽略。
-         * 
+         *
          * **注意！：**
-         * 
+         *
          * - 有些情况会出现匹配不到的问题。请尽量减少使用。
-         * 
+         *
          * [正则表达式]: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions
          * @param {RegExp} reg `id` 要满足的正则表达式。
          * @return {UiSelector} 返回选择器自身以便链式调用。
@@ -1648,11 +1653,11 @@ declare module 'widget-operation' {
 
         /**
          * @description: 为当前选择器附加控件 `packageName` 需要满足正则表达式 `reg` 的条件。有关正则表达式，可以查看 [正则表达式] 。需要注意的是，如果正则表达式是字符串，则需要使用 `\\` 来表达 `\` （也即 Java 正则表达式的形式），例如 `textMatches('\\d+')` 匹配多位数字；但如果使用 JavaScript 语法的正则表达式则不需要，例如 `textMatches(/\d+/)` 。但如果使用字符串的正则表达式则该字符串不能同时以'/'开头和结束，也即不能写诸如 `textMatches('/\\d+/')` 的表达式，否则会被开头的'/'和结尾的'/'会被忽略。
-         * 
+         *
          * **注意！：**
-         * 
+         *
          * - 有些情况会出现匹配不到的问题。请尽量减少使用。
-         * 
+         *
          * [正则表达式]: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions
          * @param {RegExp} reg 要满足的正则表达式。
          * @return {UiSelector} 返回选择器自身以便链式调用。
@@ -1689,11 +1694,11 @@ declare module 'widget-operation' {
 
         /**
          * @description: 为当前选择器附加控件 `packageName` 需要满足正则表达式 `reg` 的条件。有关正则表达式，可以查看 [正则表达式] 。需要注意的是，如果正则表达式是字符串，则需要使用 `\\` 来表达 `\` （也即 Java 正则表达式的形式），例如 `textMatches('\\d+')` 匹配多位数字；但如果使用 JavaScript 语法的正则表达式则不需要，例如 `textMatches(/\d+/)` 。但如果使用字符串的正则表达式则该字符串不能同时以'/'开头和结束，也即不能写诸如 `textMatches('/\\d+/')` 的表达式，否则会被开头的'/'和结尾的'/'会被忽略。
-         * 
+         *
          * **注意！：**
-         * 
+         *
          * - 有些情况会出现匹配不到的问题。请尽量减少使用。
-         * 
+         *
          * [正则表达式]: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions
          * @param {RegExp | string} reg 要满足的正则表达式。
          * @return {UiSelector} 返回选择器自身以便链式调用。
@@ -1702,11 +1707,11 @@ declare module 'widget-operation' {
 
         /**
          * @description: 通过控件的 `bounds` 属性查找控件。一个控件的 bounds 属性为这个控件在屏幕上显示的范围。尽管用这个方法定位控件对于静态页面十分准确，却无法兼容不同分辨率的设备；同时对于列表页面等动态页面无法达到效果，因此使用不推荐该选择器。
-         * 
+         *
          * **注意！：**
-         * 
+         *
          * - 参数的这四个数字不能随意填写，必须精确的填写控件的四个边界才能找到该控件。
-         * 
+         *
          * @param {number} left 控件左边缘与屏幕左边的距离。
          * @param {number} top 控件上边缘与屏幕上边的距离。
          * @param {number} right 控件右边缘与屏幕左边的距离。
@@ -1753,11 +1758,11 @@ declare module 'widget-operation' {
 
         /**
          * @description: 为当前选择器附加控件 `drawingOrder` 等于 `order` 的条件。 `drawingOrder` 为一个控件在父控件中的绘制顺序，通常可以用于区分同一层次的控件。
-         * 
+         *
          * **注意！：**
-         * 
+         *
          * - 此方法在 Android 7.0 以上才能使用。
-         * 
+         *
          * @param {number} order 控件在父视图中的绘制顺序。
          * @return {UiSelector} 返回选择器自身以便链式调用。
          */
@@ -1834,12 +1839,12 @@ declare module 'widget-operation' {
 
         /**
          * @description: 根据当前的选择器所确定的筛选条件，对屏幕上的控件进行搜索，直到屏幕上出现满足条件的一个控件为止，并返回该控件。如果找不到控件，当屏幕内容发生变化时会重新寻找，直至找到。
-         * 
+         *
          * **注意！：**
-         * 
+         *
          * - 如果屏幕上一直没有出现所描述的控件，则该函数会阻塞，直至所描述的控件出现为止。因此此函数不会返回 `null` 。如果想要只在屏幕上搜索一次而不是一直搜索，请使用 `findOnce()` 。
          * - 如果屏幕上有多个满足条件的控件，`findOne()` 会返回根据指定的搜索算法（默认为 `DFS` ）找到的第一个控件。
-         * 
+         *
          * @return {UiObject} 根据选择器查找到的控件。
          */
         function findOne(): UiObject;
@@ -1889,11 +1894,11 @@ declare module 'widget-operation' {
 
         /**
          * @description: 根据当前的选择器所确定的筛选条件，对屏幕上的控件进行搜索，直到找到至少一个满足条件的控件为止，并返回所有满足条件的控件集合。该函数与 `find()` 函数的区别在于，该函数永远不会返回空集合；。
-         * 
+         *
          * **注意！：**
-         * 
+         *
          * - 如果屏幕上一直没有出现满足条件的控件，该函数会保持阻塞。
-         * 
+         *
          * @return {UiCollection} 根据选择器查找到的控件集合。
          */
         function untilFind(): UiCollection;
@@ -1936,7 +1941,7 @@ declare module 'widget-operation' {
     // TODO: 补全常用属性
     /**
      * @description: 更多信息参见 [AccessibilityWindowInfo]
-     * 
+     *
      * [AccessibilityWindowInfo]: https://www.apiref.com/android-zh/android/view/accessibility/AccessibilityWindowInfo.html
      */
     interface AccessibilityWindowInfo {
