@@ -1,14 +1,26 @@
 [
-    {
-        "name": "_TOKEN",
-        "type": "text",
-        "label": "pushplus 的用户 Token",
-        "help": "可以在 pushplus 的微信公众号中获取，不使用 pushplus 则留空"
-    },
-    {
-        "label": "显示控制台(需要悬浮窗权限)",
-        "type": "checkbox",
-        "name": "_SHOW_CONSOLE",
-        "value": true
-    }
+  {
+    "name": "_TOKEN",
+    "type": "text",
+    "label": "pushplus 的用户 Token",
+    "help": "可以在 pushplus 的微信公众号中获取，不使用 pushplus 则留空"
+  },
+  {
+    "label": "显示控制台(需要悬浮窗权限)",
+    "type": "checkbox",
+    "name": "_SHOW_CONSOLE",
+    "value": true
+  },
+  {
+    "name": "TELEMETRY",
+    "type": "checkbox",
+    "label": "发送使用数据和错误报告",
+    "help": "帮助开发者改进脚本，这个报告会被认为是机密的，匿名的。"
+  },
+  {
+    "name": "myText",
+    "type": "text",
+    "label": "测试文字配置",
+    "help": "测试文字配置,测试文字配置"
+  }
 ]

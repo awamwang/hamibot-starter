@@ -11,33 +11,35 @@ import { SHOW_CONSOLE, SHORT_WAIT_MS } from "../global";
 import { PermissionException, ServiceNotEnabled } from "./exception";
 
 export function init() {
-    // check accessibility permission
-    if (auto.service === null) {
-        if (!confirm('Please enable accessibility permission')) {
-            throw new PermissionException("Accessibility permission obtaining failure.");
-        }
-        auto.waitFor();
-    } else {
-        Record.verbose("Accessibility permissions enabled");
+  // check accessibility permission
+  if (auto.service === null) {
+    if (!confirm("Please enable accessibility permission")) {
+      throw new PermissionException(
+        "Accessibility permission obtaining failure."
+      );
     }
+    auto.waitFor();
+  } else {
+    Record.verbose("Accessibility permissions enabled");
+  }
 
-    // check is service alive
-    if (device.height === 0 || device.width === 0) {
-        throw new ServiceNotEnabled(
-            'Failed to get the screen size. ' +
-            'Please try restarting the service or re-installing Hamibot'
-        );
-    } else {
-        Record.debug("Screen size: " + device.height + " x " + device.width);
-    }
+  // check is service alive
+  if (device.height === 0 || device.width === 0) {
+    throw new ServiceNotEnabled(
+      "Failed to get the screen size. " +
+        "Please try restarting the service or re-installing Hamibot"
+    );
+  } else {
+    Record.debug("Screen size: " + device.height + " x " + device.width);
+  }
 
-    // show console
-    if (SHOW_CONSOLE) {
-        console.show();
-        sleep(SHORT_WAIT_MS);
-        console.setPosition(0, 100);
-        console.setSize(device.width, device.height / 4);
-    }
+  // show console
+  if (SHOW_CONSOLE) {
+    console.show();
+    sleep(SHORT_WAIT_MS);
+    console.setPosition(0, 100);
+    console.setSize(device.width, device.height / 4);
+  }
 
-    setScreenMetrics(1080, 2400);
+  setScreenMetrics(1080, 2400);
 }
