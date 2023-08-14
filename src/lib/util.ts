@@ -1,3 +1,5 @@
+import { Image } from 'images'
+
 import { Record } from './logger'
 
 // UiObject.prototype.findOneAncestor = function (selector: UiSelector): UiObject | null {
@@ -16,6 +18,23 @@ import { Record } from './logger'
 
 //   return null
 // }
+
+export function findOneSelectorAncestor(current: UiObject, selector: UiSelector): UiObject | null {
+  // 找一个符合selector的祖先
+  let target = current.parent() // 从parent开始判断
+  let parentParent = target?.parent() || null
+
+  while (target && parentParent) {
+    if (parentParent.find(selector).includes(target)) {
+      return target
+    } else {
+      target = parentParent
+      parentParent = parentParent.parent()
+    }
+  }
+
+  return null
+}
 
 export function getSelectorDesc(selector: UiSelector) {
   return selector
@@ -62,18 +81,40 @@ export function clickAncestor(target: UiObject | null): UiObject | null {
 }
 
 export function clickTextViewAncestor(text: string, config: UiOperationConfig = {}): UiObject | null {
-  const { findTimeout = 2000 } = config
-
-  // let target = className('android.widget.TextView').text(text).findOne(findTimeout)
-  const target = clickSelectorAncestor(className('android.widget.TextView').text(text), {
+  return clickSelectorAncestor(className('android.widget.TextView').text(text), {
     ...config,
     selectorDesc: `TextView(${text})`,
   })
+}
 
-  if (!target) {
-    Record.warn(`没有找到${text}`)
-    return null
+// 对UiObject的Bounds进行操作，返回操作是否成功
+export function operateUiBounds(target: UiObject | null, operation = click): boolean {
+  if (!target) return false
+
+  const bounds = target.bounds()
+  if (!bounds) return false
+
+  if (operation === click) {
+    click(bounds.centerX(), bounds.centerY())
   }
 
-  return clickAncestor(target)
+  return true
+}
+
+export function clickImg(img: Image | string | null) {
+  if (typeof img === 'string') {
+    img = images.fromBase64(img)
+  }
+
+  if (!img) return null
+
+  let pos = findImage(captureScreen(), img)
+
+  if (pos) {
+    click(pos.x, pos.y)
+    return pos
+  } else {
+    Record.warn(`图片不存在`)
+    return null
+  }
 }

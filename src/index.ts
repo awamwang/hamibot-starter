@@ -11,10 +11,13 @@ import { init } from './lib/init'
 
 import 茄子免费小说 from './羊毛/茄子免费小说'
 import 大众点评签到 from './羊毛/大众点评签到'
+import 抖音极速版 from './羊毛/抖音极速版'
 
 init()
 ;(async function () {
+  // await new 茄子免费小说().run()
   await new 大众点评签到().run()
+  // await new 抖音极速版().run()
 
   text('我等的人，他在遥远的未来').waitFor()
 })()
