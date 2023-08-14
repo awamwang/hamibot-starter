@@ -53,7 +53,7 @@ export function clickSelectorAncestor(
   while (target) {
     if (target.clickable()) {
       target.click()
-      AwamUtils.sleepBy(waitAfter)
+      AwamUtils.sleepByTime(waitAfter)
       return target
     } else {
       target = target.parent()
@@ -71,7 +71,7 @@ export function clickAncestor(target: UiObject | null, config: UiOperationConfig
   while (target) {
     if (target.clickable()) {
       target.click()
-      AwamUtils.sleepBy(waitAfter)
+      AwamUtils.sleepByTime(waitAfter)
       return target
     } else {
       target = target.parent()
@@ -107,7 +107,7 @@ export function operateUiBounds(
     click(bounds.centerX(), bounds.centerY())
   }
 
-  AwamUtils.sleepBy(waitAfter)
+  AwamUtils.sleepByTime(waitAfter)
   return true
 }
 
@@ -124,10 +124,16 @@ export function clickImg(img: Image | string | null, config: UiOperationConfig =
 
   if (pos) {
     click(pos.x, pos.y)
-    AwamUtils.sleepBy(waitAfter)
+    AwamUtils.sleepByTime(waitAfter)
     return pos
   } else {
     Record.warn(`图片不存在`)
     return null
   }
+}
+
+export function swipe刷新() {
+  const { width, height } = device
+
+  swipe(width / 2, height - 100, width / 2, 0, 100)
 }

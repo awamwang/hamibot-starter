@@ -43,6 +43,7 @@ module.exports = {
     new ProvidePlugin({
       loggerUtils: path.resolve(path.join(__dirname, '../src/lib/logger')),
       Record: [path.resolve(path.join(__dirname, '../src/lib/logger')), 'Record'],
+      AwamApp: [path.resolve(path.join(__dirname, '../src/lib/app.ts')), 'AwamApp'],
       AwamTask: [path.resolve(path.join(__dirname, '../src/task/task')), 'AwamTask'],
       AwamWorker: [path.resolve(path.join(__dirname, '../src/task/worker')), 'AwamWorker'],
       AwamUtils: path.resolve(path.join(__dirname, '../src/lib/util/index')),

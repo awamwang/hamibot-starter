@@ -50,10 +50,9 @@ export class AwamApp {
 
     if (强行停止按钮) {
       强行停止按钮.click()
-      sleep(1000)
-      if (textContains('可能导致异常').exists()) {
-        // hamibot.postMessage(currentActivity())
-        text(ForceStop).findOne().click()
+
+      if (textContains('可能导致异常').findOne(1000)) {
+        textContains('确定').findOne().click()
       }
       sleep(100)
     }

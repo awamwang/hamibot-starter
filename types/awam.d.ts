@@ -8,13 +8,15 @@
  */
 declare module 'awam' {
   global {
-    type sleepTime = number | [number, number] // [min, max]
+    type SleepTime = number | [number, number] // [min, max]
 
     interface UiOperationConfig {
       findTimeout?: number
-      waitBefore?: sleepTime
-      waitAfter?: sleepTime
-      waitInterval?: sleepTime
+      before?: Function
+      after?: Function
+      waitBefore?: SleepTime
+      waitAfter?: SleepTime
+      waitInterval?: SleepTime
     }
   }
 }
