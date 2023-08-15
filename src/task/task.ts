@@ -5,8 +5,6 @@
  */
 
 import { AwamApp } from '../lib/app'
-import { Record } from '../lib/logger'
-import { BaseException } from '../lib/exception'
 import { AwamWorker, AwamWorkerConfig } from './worker'
 
 export interface AwamTaskConfig extends AwamWorkerConfig {
@@ -49,7 +47,7 @@ export abstract class AwamTask {
 
   async handler(args?: any) {
     Record.verbose(`${this.logDesc} handler: 暂无处理`, args)
-    throw new BaseException('not implemented')
+    throw new exceptionUtils.BaseException('not implemented')
   }
 
   async after() {
@@ -63,7 +61,7 @@ export abstract class AwamTask {
     try {
       await this.handler(args)
     } catch (e) {
-      if (e instanceof BaseException) {
+      if (e instanceof exceptionUtils.BaseException) {
         Record.error(e.toString())
       }
     } finally {

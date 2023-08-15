@@ -1,6 +1,3 @@
-import { Record } from '../../lib/logger'
-import { sleepByTime } from '../../lib/util/hamibot'
-
 let 搜索 = (keyword: string, { findTimeout = 2000 }) => {
   // className = android.widget.TextView
   const 搜索按钮 = className('android.widget.TextView').text('搜索').findOne(findTimeout)
@@ -19,7 +16,7 @@ let 搜索 = (keyword: string, { findTimeout = 2000 }) => {
 
   setClip(keyword)
   搜索关键词.paste()
-  sleepByTime(1000)
+  AwamUtils.sleepByTime(1000)
   // const 添加框 = id('add_search_keyword').findOne(findTimeout)
   // if (!添加框) {
   // if (!搜索关键词.setText(keyword)) {

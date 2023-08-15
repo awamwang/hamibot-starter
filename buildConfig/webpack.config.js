@@ -41,8 +41,9 @@ module.exports = {
   plugins: [
     // new CleanWebpackPlugin(),
     new ProvidePlugin({
-      loggerUtils: path.resolve(path.join(__dirname, '../src/lib/logger')),
-      Record: [path.resolve(path.join(__dirname, '../src/lib/logger')), 'Record'],
+      exceptionUtils: path.resolve(path.join(__dirname, '../src/lib/exception/exception')),
+      loggerUtils: path.resolve(path.join(__dirname, '../src/lib/exception/logger')),
+      Record: [path.resolve(path.join(__dirname, '../src/lib/exception/logger')), 'Record'],
       AwamApp: [path.resolve(path.join(__dirname, '../src/lib/app.ts')), 'AwamApp'],
       AwamTask: [path.resolve(path.join(__dirname, '../src/task/task')), 'AwamTask'],
       AwamWorker: [path.resolve(path.join(__dirname, '../src/task/worker')), 'AwamWorker'],

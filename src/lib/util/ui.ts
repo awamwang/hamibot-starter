@@ -1,7 +1,5 @@
 import { Image } from 'images'
 
-import { Record } from '../logger'
-
 // UiObject.prototype.findOneAncestor = function (selector: UiSelector): UiObject | null {
 //   // 一个符合selector的祖先
 //   let target = this.parent() // 从parent开始判断

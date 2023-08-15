@@ -1,6 +1,4 @@
 // import { ApplicationInfo, PackageInfo } from 'app'
-import { Record } from './logger'
-import { BaseException } from './exception'
 
 const PackageNameReg = /^com\.(\S+)\.(\S+)/
 const SettingPackageName = 'com.android.settings'
@@ -19,7 +17,7 @@ export class AwamApp {
     }
 
     if (!name) {
-      throw new BaseException('无效的包名或APP名，可能APP未安装')
+      throw new exceptionUtils.BaseException('无效的包名或APP名，可能APP未安装')
     }
 
     this.packageName = name

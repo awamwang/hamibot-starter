@@ -3,8 +3,6 @@
  */
 
 import { AwamApp } from '../lib/app'
-import { Record } from '../lib/logger'
-import { BaseException } from '../lib/exception'
 
 export interface AwamWorkerConfig {
   name?: string // 这个name是packageName和appName你的统称，并非worker的名字，不能随意填写
@@ -44,7 +42,7 @@ export abstract class AwamWorker {
   }
 
   async handler() {
-    throw new BaseException('not implemented， 建议添加一个或多个task')
+    throw new exceptionUtils.BaseException('not implemented， 建议添加一个或多个task')
   }
 
   async after() {
@@ -59,7 +57,7 @@ export abstract class AwamWorker {
     try {
       await this.handler()
     } catch (e) {
-      if (e instanceof BaseException) {
+      if (e instanceof exceptionUtils.BaseException) {
         Record.error(e.toString())
       }
 

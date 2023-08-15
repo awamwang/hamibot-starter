@@ -7,8 +7,8 @@
  * @Description: 全局常量和配置项验证
  */
 
-import { ConfigInvalidException } from './lib/exception'
-import { LogLevel, LOG_STACK, Record, sendLog, setToken } from './lib/logger'
+import { ConfigInvalidException } from './lib/exception/exception'
+import { LogLevel, LOG_STACK, Record, sendLog, setToken } from './lib/exception/logger'
 
 export const PROJECT_NAME = 'Untitled Script'
 

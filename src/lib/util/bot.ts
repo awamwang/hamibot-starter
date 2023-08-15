@@ -6,7 +6,10 @@ export type BotRandomMethod = number | RandomGenerator
 
 // 对传入的每个数字进行10%上下的random
 export function percentageRandom(n: number, range = 0.1) {
-  return random(n - n * range, n + n * range)
+  const min = n - n * range
+  const max = n + n * range
+
+  return random(min, max)
 }
 
 // export function botRandom(n: number, method?: number | RandomGenerator): number

@@ -1,6 +1,7 @@
 export {}
 declare global {
-  const loggerUtils: typeof import('../src/lib/logger')
+  const exceptionUtils: typeof import('../src/lib/exception/exception')
+  const loggerUtils: typeof import('../src/lib/exception/logger')
   const Record: typeof loggerUtils.Record
   const AwamApp: typeof import('../src/lib/app').AwamApp
   const AwamTask: typeof import('../src/task/task').AwamTask
